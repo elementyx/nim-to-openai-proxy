@@ -161,7 +161,7 @@ const REASONING_EFFORT_ENUMS = {
   'nvidia/nemotron-3-ultra-550b-a55b': ['low'],
   'minimaxai/minimax-m3': ['adaptive'],
   'moonshotai/kimi-k3': ['low', 'high', 'max'],
-  'meta/muse-glimmer-30b': ['none', 'minimal', 'low', 'medium', 'high', 'max']
+  'z-ai/glm-5.3': ['none', 'minimal', 'low', 'medium', 'high', 'max']
 };
 
 function validReasoningEffort(model, effort) {
@@ -206,7 +206,7 @@ function getReasoningPayload(model, enableThinking, clientReasoningEffort, hasTo
       return payload;
     }
 
-    case 'nvidia/nemotron-3-ultra-550b-a55b': {
+    case 'z-ai/glm-5.3': {
       if (!enableThinking) return {};
       const payload = { chat_template_kwargs: { enable_thinking: true } };
       if (effort === 'low') payload.chat_template_kwargs.low_effort = true;
