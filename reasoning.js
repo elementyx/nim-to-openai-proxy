@@ -214,6 +214,19 @@ function getReasoningPayload(model, enableThinking, clientReasoningEffort, hasTo
       return payload;
     }
 
+    case 'z-ai/glm-5.3': 
+    case 'z-ai/glm-5.3': {
+      return { 
+        chat_template_kwargs: { thinking_mode: 'enabled' },
+        interleaved: 'reasoning_content' // Zwingt den Proxy, die Gedanken im Stream zu behalten
+      };
+    }
+    case 'minimaxai/minimax-m3': {
+      const thinkingMode = effort === 'adaptive' ? 'adaptive' : (enableThinking ? 'enabled' : 'disabled');
+      return { chat_template_kwargs: { thinking_mode: thinkingMode } };
+    }
+
+      
     case 'nvidia/nemotron-3.5-lightning-30b-a3b': {
       if (!enableThinking) return { reasoning_budget: 0 };
       return { reasoning_budget: NEMOTRON_LIGHTNING_BUDGET_MAP[effort] ?? 16384 };
